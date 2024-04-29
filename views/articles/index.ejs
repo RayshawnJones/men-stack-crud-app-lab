@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"> 
+    <title>Blog</title>
+  </head>
+  <body>
+    <div class="container"> 
+      <!-- W3 Schools to understand class and stackover flow -->
+      <h1 class="mb-4">Blog of a abstract mind</h1> 
+       <a href="/articles/new" class="btn btn-primary">Floating Thoughts</a>
+
+       <%  articles.forEach(article => { %>
+        <div class=""card mt-4>
+          <div class="card-body">
+            <h3 class="card-title"><%= article.title %></h3>
+            <div class="card-subtitle text-muted mb-3">
+              <%= article.createdAt.toLocalDateString %>
+            </div>
+            <div class=""card-text mb-2">
+              <%= article.description %>
+            </div>
+          <!-- <%= article.title %> -->
+        </div
+    </div>
+ <% }) %> 
+    </div>
+  </body>
+</html>
