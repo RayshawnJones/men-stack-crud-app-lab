@@ -1,33 +1,34 @@
 const express = require("express");
-const articleRouter = require("./routes/articles");
+const thoughtRouter = require("./routes/thoughts");
+const methodOverride = require("method-override");
+const Thought = require("./models/thought");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
+const { render } = require("ejs");
 
 mongoose.connect(process.env.MONGODB_URI);
 
 
-
 app.set("view engine", "ejs");
 
-app.use('/articles', articleRouter);
+app.use(express.urlencoded({extended: false}));
+app.use(methodOverride("_method"));
 
-app.get("/", (req, res) => {
-  const articles = [{
-    title: 'Test Article',
-    createdAt: new Date(),
-    description: 'Test description'
-  },{
-    title: 'Test Article 2',
-    createdAt: new Date(),
-    description: 'Test description 2'
-  }]
-  res.render("index", {articles: articles});
-});
+app.get("/", async (req, res) => {
+  const thoughts = Thought.find().sort({createdAt: "desc"}); 
+res.render("home", {thoughts: thoughts});
+})
+
+
+
 
 
 mongoose.connection.on("connected", () => {
   console.log(`MongoDB ${mongoose.connection.name} connected`);
 });
+
+app.use('/thoughts', thoughtRouter);
+
 app.listen(3000)
