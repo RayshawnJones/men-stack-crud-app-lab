@@ -18,7 +18,7 @@ app.use(methodOverride("_method"));
 
 app.get("/", async (req, res) => {
   const thoughts = Thought.find().sort({createdAt: "desc"}); 
-res.render("home", {thoughts: thoughts});
+res.render("thoughts/home.ejs", {thoughts:thoughts});
 })
 
 
